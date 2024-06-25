@@ -1,4 +1,4 @@
-package score_admin;
+package login;
 
 public class Action {
 
