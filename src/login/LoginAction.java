@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import tool.Action;
 
-@WebServlet("/login/login.action")
+@WebServlet("/login.action")
 public class LoginAction extends Action{
 
 	@Override

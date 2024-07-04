@@ -9,7 +9,7 @@ import bean.Teacher;
 import dao.TeacherDAO;
 import tool.Action;
 
-@WebServlet("/login/login_execute.action")
+@WebServlet("/login_execute.action")
 public class LoginExecuteAction extends Action{
 	public void execute(
 			HttpServletRequest request, HttpServletResponse response
