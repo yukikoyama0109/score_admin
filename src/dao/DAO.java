@@ -5,7 +5,7 @@ import java.sql.Connection;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-public class Dao {
+public class DAO {
 	// 全てのインスタンスで利用する為
 	// staticフィールドとして定義(グローバル変数)
 	static DataSource ds;
