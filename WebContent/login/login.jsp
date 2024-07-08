@@ -12,7 +12,6 @@
 	<label>パスワード表示</label>
 	<input type="submit" type="button" name="login" value="ログイン">
 
-
 </form>
 
 </c:param>
