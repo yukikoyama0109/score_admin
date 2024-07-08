@@ -20,17 +20,17 @@ public class LoginExecuteAction extends Action{
 		String login_id = request.getParameter("id");
 		String password = request.getParameter("password");
 
-//		System.out.println("★ login_id ->" + login_id);
-//		System.out.println("★ password ->" + password);
+		System.out.println("★ login_id ->" + login_id);
+		System.out.println("★ password ->" + password);
 
 		TeacherDAO dao = new TeacherDAO();
 		Teacher teacher = dao.login(login_id, password);
 
-//		System.out.println("★ teacher ->" + teacher);
+		System.out.println("★ teacher ->" + teacher);
 
 		if (teacher != null) {
 			session.setAttribute("session_teacher", teacher);
-		response.sendRedirect("menu.jsp");
+		response.sendRedirect("../menu.jsp");
 
 		} else {
 			request.setAttribute("id", login_id);
