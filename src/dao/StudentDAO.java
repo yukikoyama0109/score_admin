@@ -31,7 +31,7 @@ public class StudentDAO extends DAO{
 			ResultSet rSet = statement.executeQuery();
 
 			//学校Daoを初期化
-			schoolDAO schoolDAO = new schoolDAO();
+			SchoolDAO SchoolDAO = new SchoolDAO();
 
 			if (rSet.next()) {
 				//リザルトセットが存在する場合
@@ -42,7 +42,7 @@ public class StudentDAO extends DAO{
 				student.setClassNum(rSet.getString("class_num"));
 				student.setAttend(rSet.getBoolean("is_attend"));
 				//学校フィールドには学校コードで検索した学校インスタンスをセット
-				student.setSchool(schoolDAO.get(rSet.getString("school_cd")));
+				student.setSchool(SchoolDAO.get(rSet.getString("school_cd")));
 			} else {
 				//リザルトセットが存在しない場合
 				//学生インスタンスに検索結果をセット
