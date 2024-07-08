@@ -12,7 +12,7 @@ import bean.Student;
 
 public class StudentDAO extends DAO{
 
-	private String baseSql;
+	private String baseSql = "select * from student where school_cd=? ";
 
 	//getメソッド
 	public Student get(String no) throws Exception{
@@ -31,7 +31,7 @@ public class StudentDAO extends DAO{
 			ResultSet rSet = statement.executeQuery();
 
 			//学校Daoを初期化
-			SchoolDAO SchoolDAO = new SchoolDAO();
+			SchoolDAO schoolDAO = new SchoolDAO();
 
 			if (rSet.next()) {
 				//リザルトセットが存在する場合
@@ -42,7 +42,7 @@ public class StudentDAO extends DAO{
 				student.setClassNum(rSet.getString("class_num"));
 				student.setAttend(rSet.getBoolean("is_attend"));
 				//学校フィールドには学校コードで検索した学校インスタンスをセット
-				student.setSchool(SchoolDAO.get(rSet.getString("school_cd")));
+				student.setSchool(schoolDAO.get(rSet.getString("school_cd")));
 			} else {
 				//リザルトセットが存在しない場合
 				//学生インスタンスに検索結果をセット
@@ -327,7 +327,7 @@ public class StudentDAO extends DAO{
 		}
 	}
 
-	private String baseSql = "select * from student where school_cd=? ";
+//	private String baseSql = "select * from student where school_cd=? ";
 
 
 }
