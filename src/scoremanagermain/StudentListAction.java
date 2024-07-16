@@ -111,7 +111,6 @@ public class StudentListAction extends Action {
 		System.out.println("entYear（入学年度）: "+entYear);
 		System.out.println("classNum（クラス） : " + classNum);
 		System.out.println("isAttendStr（在学中）：	 :"+isAttendStr);
-		System.out.println("");
 		System.out.println("class_num_set（クラスの一覧）: "+list);
 		System.out.println("entYearSet（入学年度の一覧）: "+entYearSet);
 		System.out.println("---------------------------------------------");
