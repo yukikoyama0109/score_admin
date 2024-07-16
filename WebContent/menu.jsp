@@ -43,7 +43,7 @@
             <div class="row">
                 <div class="col-md-4 mb-4">
                    <div class="box bg-danger-light text-center text-white p-5 rounded d-flex flex-column justify-content-center align-items-center"> <!-- 赤色 -->
-                        <a href="scoremanager.main/StudentList.action" >学生管理</a>
+                        <a href="scoremanagermain/StudentList.action" >学生管理</a>
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">

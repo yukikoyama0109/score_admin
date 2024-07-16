@@ -1,4 +1,4 @@
-package scoremanager.main;
+package scoremanagermain;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,12 +17,13 @@ import dao.ClassNumDAO;
 import dao.StudentDAO;
 import tool.Action;
 
+@WebServlet("/scoremanagermain/student_list.action")
 public class StudentListAction extends Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession(); //セッション
-		Teacher teacher = (Teacher)session.getAttribute("user");
+		Teacher teacher = (Teacher)session.getAttribute("session_teacher");
 
 		String entYearStr = ""; //入力された入学年度
 		String classNum = ""; //入力されたクラス番号
@@ -44,24 +46,36 @@ public class StudentListAction extends Action {
 
 		//DBからデータ取得 3 ★
 		//　ログインユーザーの学校コードを元にクラス番号の一覧を取得
+		System.out.println("test");
+
+		System.out.println(teacher.getSchool());
+//		System.out.println("checked!");
 		List<String> list = cNumDao.filter(teacher.getSchool());
 
-		if (entYear != 0 && !classNum.equals("0")) {
-			//入学年度とクラス番号を指定
-			students = sDao.filter(teacher.getSchool(), entYear, classNum, isAttend);
-		} else if (entYear != 0 && classNum.equals("0")) {
-			 //入学年度のみ指定
-			 students = sDao.filter(teacher.getSchool(), entYear, isAttend);
-		} else if (entYear != 0 && classNum == null || entYear == 0 && classNum.equals("0")) {
-			//指定なしの場合
-			//全学生情報を取得
-			students = sDao.filter(teacher.getSchool(), isAttend);
-		} else {
-			errors.put("f1", "クラスを指定する場合は入学年度を指定してください");
-			request.setAttribute("errors", errors);
-			//全学生情報を取得
-			students = sDao.filter(teacher.getSchool(), isAttend);
-		}
+		System.out.println(list);
+		System.out.println("checked!");
+		System.out.println("entYear:" + entYear);
+//		System.out.println("classNum.equals: " + classNum.equals("0"));
+//		System.out.println("classNum" + classNum);
+
+		students = sDao.filter(teacher.getSchool(), entYear, classNum, isAttend);
+//		if (entYear != 0 && !classNum.equals("0")) {
+//			//入学年度とクラス番号を指定
+//			students = sDao.filter(teacher.getSchool(), entYear, classNum, isAttend);
+//		} else if (entYear != 0 && classNum.equals("0")) {
+//			 //入学年度のみ指定
+//			 students = sDao.filter(teacher.getSchool(), entYear, isAttend);
+//		} else if (entYear != 0 && classNum == null || entYear == 0 && classNum.equals("0")) {
+//			//指定なしの場合
+//			//全学生情報を取得
+//			students = sDao.filter(teacher.getSchool(), isAttend);
+//		} else {
+//			errors.put("f1", "クラスを指定する場合は入学年度を指定してください");
+//			request.setAttribute("errors", errors);
+//			//全学生情報を取得
+//			students = sDao.filter(teacher.getSchool(), isAttend);
+//		}
+		System.out.println();
 
 		//ビジネスロジック 4 ★
 		if (entYearStr != null) {
@@ -94,7 +108,7 @@ public class StudentListAction extends Action {
 		request.setAttribute("ent_year_set", entYearSet);
 
 		//JSPへフォワード 7 ★
-		request.getRequestDispatcher("student_list.jsp").forward(request, response);
+		request.getRequestDispatcher("scoremanagermain/student_list.jsp").forward(request, response);
 	}
 
 }
