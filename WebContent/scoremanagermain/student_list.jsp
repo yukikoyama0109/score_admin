@@ -40,6 +40,8 @@
                     <div class="mt-2 text-warning">${errors.get("f1")}</div>
                 </div>
             </form>
+
+
             <c:choose>
                 <c:when test="${students.size() > 0}">
                     <div>検索結果：${students.size()}件</div>
@@ -48,7 +50,6 @@
                             <th>入学年度</th>
                             <th>学生番号</th>
                             <th>氏名</th>
-                            <th>クラス</th>
                             <th class="text-center">在学中</th>
                             <th></th>
                             <th></th>
@@ -58,7 +59,6 @@
                                 <td>${student.entYear}</td>
                                 <td>${student.no}</td>
                                 <td>${student.name}</td>
-                                <td>${student.classNum}</td>
                                 <td class="text-center">
                                     <c:choose>
                                         <c:when test="${student.isAttend()}">
