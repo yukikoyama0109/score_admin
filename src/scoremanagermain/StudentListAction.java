@@ -37,34 +37,25 @@ public class StudentListAction extends Action {
 		ClassNumDAO cNumDao = new ClassNumDAO(); //クラス番号Daoを初期化
 		Map<String, String> errors = new HashMap<>(); //エラーメッセージ
 
-
 		//リクエストパラメーターの取得 2 ★
 		entYearStr = request.getParameter("f1"); //元はreqと書いてある
 		classNum = request.getParameter("f2");
 		isAttendStr = request.getParameter("f3");
 
-
 		//DBからデータ取得 3 ★
 		//　ログインユーザーの学校コードを元にクラス番号の一覧を取得
-		System.out.println("----------------テストはじめ----------------");
+		System.out.println("----------学生管理のテストはじめ---------------");
 
-		System.out.println("sesion_teacher checked :"+teacher.getSchool());
 		List<String> list = cNumDao.filter(teacher.getSchool());
+		System.out.println("class_num_set（クラスの一覧）: "+list);
 
-//		System.out.println(list);
-//		System.out.println("checked!");
-//		System.out.println("sDao:" + sDao);
-//		System.out.println("classNum.equals: " + classNum.equals("0"));
-//		System.out.println("classNum" + classNum);
-
-//		students = sDao.filter(teacher.getSchool(), entYear, classNum, isAttend);
 		if (entYear != 0 && !classNum.equals("0")) {
 			//入学年度とクラス番号を指定
 			students = sDao.filter(teacher.getSchool(), entYear, classNum, isAttend);
 		} else if (entYear != 0 && classNum.equals("0")) {
 			 //入学年度のみ指定
 			 students = sDao.filter(teacher.getSchool(), entYear, isAttend);
-		} else if (entYear != 0 && classNum == null || entYear == 0 ) {
+		} else if (entYear == 0 && classNum == null || entYear == 0 && classNum.equals("0")) {
 			//指定なしの場合
 			//全学生情報を取得
 			students = sDao.filter(teacher.getSchool(), isAttend);
@@ -74,8 +65,6 @@ public class StudentListAction extends Action {
 			//全学生情報を取得
 			students = sDao.filter(teacher.getSchool(), isAttend);
 		}
-
-		System.out.println("students検索 checked: " + students);
 
 		//ビジネスロジック 4 ★
 		if (entYearStr != null) {
@@ -88,10 +77,12 @@ public class StudentListAction extends Action {
 		for(int i = year - 10; i < year + 1; i++) {
 			entYearSet.add(i);
 		}
+		System.out.println("check entYearSet（入学年度の一覧）: "+ entYearSet);
 
 		// レスポンス値をセット 6 ★
 		//リクエストに入学年度をセット
 		request.setAttribute("f1", entYear);
+
 		//リクエストにクラスに番号をセット
 		request.setAttribute("f2", classNum);
 
@@ -102,20 +93,18 @@ public class StudentListAction extends Action {
 			// リクエストに在学フラグをセット
 			request.setAttribute("f3", isAttendStr);
 		}
+
 		//リクエストに学生リストをセット
 		request.setAttribute("students", students);
 		//リクエストにデータをセット
 		request.setAttribute("class_num_set", list);
 		request.setAttribute("ent_year_set", entYearSet);
+
 		System.out.println("★検索した後");
 		System.out.println("entYear（入学年度）: "+entYear);
 		System.out.println("classNum（クラス） : " + classNum);
-		System.out.println("isAttendStr（在学中）：	 :"+isAttendStr);
-		System.out.println("class_num_set（クラスの一覧）: "+list);
-		System.out.println("entYearSet（入学年度の一覧）: "+entYearSet);
+		System.out.println("isAttendStr 1（在学中): "+isAttendStr);
 		System.out.println("---------------------------------------------");
-
-
 
 		//JSPへフォワード 7 ★
 		request.getRequestDispatcher("student_list.jsp").forward(request, response);

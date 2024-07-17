@@ -71,7 +71,6 @@ public class StudentDAO extends DAO{
 		return student;
 	}
 
-
 	// postFilterメソッド ★
 	private List<Student> postFilter(ResultSet rSet, School school) throws Exception {
 		//リストを初期化
@@ -85,6 +84,7 @@ public class StudentDAO extends DAO{
 				student.setName(rSet.getString("name"));
 				student.setEntYear(rSet.getInt("ent_year"));
 				student.setClassNum(rSet.getString("class_num"));
+				student.setAttend(rSet.getBoolean("is_attend"));
 				student.setSchool(school);
 				//リストに追加
 				list.add(student);
