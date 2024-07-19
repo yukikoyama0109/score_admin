@@ -79,7 +79,9 @@ nav ul li a:hover {
 <header>
   <h1>得点管理システム</h1>
 
-  	<h5>ようこそ、${ session_teacher.id } さん (≧▽≦)</h5>
+<c:if test="${not empty session_teacher.id}">
+  <h5>ようこそ、${ session_teacher.id } さん (≧▽≦)</h5>
+</c:if>
 
   <a href="login/Logout.action" class="header-link">ログアウト</a>
 </header>
