@@ -78,16 +78,18 @@ nav ul li a:hover {
 
 <header>
   <h1>得点管理システム</h1>
-  <p>ユーザー名表示予定</p>
-  <a href="logout.jsp" class="header-link">ログアウト</a>
+
+  	<h5>ようこそ、${ session_teacher.id } さん (≧▽≦)</h5>
+
+  <a href="login/Logout.action" class="header-link">ログアウト</a>
 </header>
 
 <div id="container">
   <div id="sidebar">
     <nav>
       <ul>
-        <li><a href="#">メニュー</a></li>
-        <li><a href="#">学生管理</a></li>
+        <li><a href="/menu.jsp">メニュー</a></li>
+        <li><a href="scoremanagermain/StudentList.action">学生管理</a></li>
         <li>
           <label>成績管理</label>
           <ul>
