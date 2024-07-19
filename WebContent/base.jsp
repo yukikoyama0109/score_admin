@@ -81,7 +81,7 @@ nav ul li a:hover {
 
   	<h5>ようこそ、${ session_teacher.id } さん (≧▽≦)</h5>
 
-  <a href="login/Logout.action" class="header-link">ログアウト</a>
+  <a href="Logout.action" class="header-link">ログアウト</a>
 </header>
 
 <div id="container">
