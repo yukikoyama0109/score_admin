@@ -74,8 +74,8 @@ public class SubjectDAO extends DAO{
 		//リストを初期化
 		List<Subject> list = new ArrayList<>();
 
-		//科目インスタンスを初期化
-		Subject subject = new Subject();
+//		//科目インスタンスを初期化
+//		Subject subject = new Subject();
 		//コネクションを確立
 		Connection connection = getConnection();
 
@@ -96,16 +96,12 @@ public class SubjectDAO extends DAO{
 				//リザルトセットが存在する場合
 				//学生インスタンスに検索結果をセット
 
-				while (rSet.next()) {
-				//学生インスタンスを初期化
-
-				//学生インスタンスに検索結果をセット
-				subject.setCd(rSet.getString("cd"));
-				subject.setName(rSet.getString("name"));
-
-				//リストに追加
-				list.add(subject);
-			        }
+            while (rSet.next()) {
+                Subject subject = new Subject(); // 新しいSubjectインスタンスを作成
+                subject.setCd(rSet.getString("cd"));
+                subject.setName(rSet.getString("name"));
+                list.add(subject);
+            }
 
 		} catch (Exception e) {
 			throw e;

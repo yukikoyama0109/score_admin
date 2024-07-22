@@ -50,7 +50,7 @@
                     <div class="box bg-success-light text-center text p-5 rounded"> <!-- 緑色 -->
                         <div>成績管理</div>
                         <a href="/TestRegist.action" >成績登録</a><br>
-                        <a href="/TestList.action" >成績参照</a>
+                        <a href="grades/TestList.action" >成績参照</a>
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
