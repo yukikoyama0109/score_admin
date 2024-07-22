@@ -55,7 +55,7 @@
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="box bg-purple-light text-center text-white p-5 rounded d-flex flex-column justify-content-center align-items-center"> <!-- 紫色 -->
-                        <a href="/SubjectList.action" >科目管理</a>
+                        <a href="subject/SubjectList.action" >科目管理</a>
                     </div>
                 </div>
             </div>
