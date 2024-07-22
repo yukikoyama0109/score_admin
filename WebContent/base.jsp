@@ -84,6 +84,12 @@ nav ul li a:hover {
 	margin-top: 23px;
 	margin-right: 50px;
 }
+#sidebar {
+  width: 200px;
+  padding-left: 1rem;
+  background-color: #ffffff;
+  border-right: 1px solid gray; /* 縦線の色を灰色に変更 */
+}
 </style>
 </head>
 
