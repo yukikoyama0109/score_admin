@@ -75,13 +75,12 @@ public class SubjectDAO extends DAO{
 		List<Subject> list = new ArrayList<>();
 
 		//科目インスタンスを初期化
-				Subject subject = new Subject();
+		Subject subject = new Subject();
 		//コネクションを確立
 		Connection connection = getConnection();
 
 		//プリペアードステートメント
 		PreparedStatement statement = null;
-
 
 
 		try {
@@ -92,23 +91,22 @@ public class SubjectDAO extends DAO{
 			//プリペアードステートメントを実行
 			ResultSet rSet = statement.executeQuery();
 
-			//学校Daoを初期化
-			SchoolDAO schoolDAO = new SchoolDAO();
 
 
-			if (rSet.next()) {
 				//リザルトセットが存在する場合
+				//学生インスタンスに検索結果をセット
+
+				while (rSet.next()) {
+				//学生インスタンスを初期化
+
 				//学生インスタンスに検索結果をセット
 				subject.setCd(rSet.getString("cd"));
 				subject.setName(rSet.getString("name"));
-				//学校フィールドには学校コードで検索した学校インスタンスをセット
-				subject.setSchool(schoolDAO.get(rSet.getString("school_cd")));
 
-			} else {
-				//リザルトセットが存在しない場合
-				//学生インスタンスに検索結果をセット
-				subject = null;
-			}
+				//リストに追加
+				list.add(subject);
+			        }
+
 		} catch (Exception e) {
 			throw e;
 		} finally {
