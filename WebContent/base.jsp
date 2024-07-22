@@ -90,6 +90,10 @@ nav ul li a:hover {
   background-color: #ffffff;
   border-right: 1px solid gray; /* 縦線の色を灰色に変更 */
 }
+nav ul li a {
+  text-decoration: none;
+  color: blue; /* リンクの色を青色に変更 */
+}
 </style>
 </head>
 
@@ -117,8 +121,8 @@ nav ul li a:hover {
 		        <li>
 		          <label>成績管理</label>
 		          <ul>
-		            <li><a href="#">成績登録</a></li>
-		            <li><a href="#">成績参照</a></li>
+		            <li><a href="#">ㅤ成績登録</a></li>
+		            <li><a href="#">ㅤ成績参照</a></li>
 		          </ul>
 		        </li>
 		        <li><a href="#">科目管理</a></li>
