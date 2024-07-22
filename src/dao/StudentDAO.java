@@ -1,5 +1,7 @@
-//日付：2024/07/18
-//作成者:グェン
+/*
+	日付：2024/07/18
+	作成者:グェン
+*/
 
 
 package dao;
@@ -118,7 +120,7 @@ public class StudentDAO extends DAO{
 		String conditionIsAttend = "";
 		//在学フラグがtrueの場合
 		if (isAttend) {
-			conditionIsAttend = "and is attend=true";
+			conditionIsAttend = "and is_attend=true";
 		}
 
 		try {
@@ -175,7 +177,7 @@ public class StudentDAO extends DAO{
 		String conditionIsAttend = "";
 		//在学フラグがtrueの場合
 		if (isAttend) {
-			conditionIsAttend = "and is attend=true";
+			conditionIsAttend = "and is_attend=true";
 		}
 
 		try {
@@ -229,7 +231,7 @@ public class StudentDAO extends DAO{
 		String conditionIsAttend = "";
 		//在学フラグがtrueの場合
 		if (isAttend) {
-			conditionIsAttend = "and is attend=true";
+			conditionIsAttend = "and is_attend=true";
 		}
 
 		try {
@@ -276,6 +278,7 @@ public class StudentDAO extends DAO{
 		try {
 			//データベースから学生を取得
 			Student old = get(student.getNo());
+			System.out.println("checkk old in Dao: "+old);
 			if (old == null) {
 				//学生が存在していなかった場合
 				//プリペアードステートメントにINSERT文をセット
@@ -391,6 +394,75 @@ public class StudentDAO extends DAO{
 			return false;
 		}
 
+	}
+
+
+//	DBに学生を保存するメソッド
+	public boolean update(Student student, String name, String classNum, Boolean isAttend) throws Exception {
+		//コネクションを確立
+		Connection connection = getConnection();
+		//プリペアードステートメント
+		PreparedStatement st = null;
+		//実行件数
+		int count = 0;
+
+		try {
+			//データベースから学生を取得
+			Student old = get(student.getNo());
+			if (old == null) {
+				//学生が存在していなかった場合
+				//プリペアードステートメントにINSERT文をセット
+				st = connection.prepareStatement(
+						"insert into student(no, name, ent_year, class_num, is_attend, school_cd) values(?, ?, ?, ?, ?, ?)");
+				st.setString(1, student.getNo());
+				st.setString(2, student.getName());
+				st.setInt(3, student.getEntYear());
+				st.setString(4, student.getClassNum());
+				st.setBoolean(5, student.isAttend());
+				st.setString(6, student.getSchool().getCd());
+			} else {
+				//学生が存在した場合
+				//プリペアードステートメントにUPDATE文をセット
+				st = connection.prepareStatement(
+						"update student set name=?, ent_year=?, class_num=?, is_attend=? where no=?");
+				st.setString(1, name);
+				st.setInt(2, student.getEntYear());
+				st.setString(3, classNum);
+				st.setBoolean(4, isAttend);
+				st.setString(5, student.getNo());
+			}
+
+			//プリペアードステートメントを実行
+			count = st.executeUpdate();
+
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			//プリペアードステートメントを閉じる
+			if (st != null) {
+				try {
+					st.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+			//コネクションを閉じる
+			if (connection != null) {
+				try {
+					connection.close();
+				} catch (SQLException sqle) {
+					throw sqle;
+				}
+			}
+		}
+
+		if (count > 0) {
+			//実行件数が1件以上ある場合
+			return true;
+		} else {
+			//実行件数が０件の場合
+			return false;
+		}
 	}
 
 

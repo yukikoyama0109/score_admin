@@ -11,7 +11,7 @@
                 <a href="StudentCreate.action">新規登録</a>
             </div>
 
-            <form method="get">
+            <form action="StudentList.action" method="get">
                 <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
                     <div class="col-4">
                         <label class="form-label" for="student-f1-select">入学年度</label>
@@ -39,11 +39,11 @@
                         </label>
                     </div>
                     <div class="col-2 text-center">
-                        <button class="btn btn-secondary" id="filter-button">絞り込み</button>
+                        <button class="btn btn-secondary" id="filter-button" type="submit">絞り込み</button>
                     </div>
                     <div class="mt-2 text-warning">${errors.get("f1")}</div>
                 </div>
-            </form>
+
 
 
             <c:choose>
@@ -76,7 +76,6 @@
                                     </c:choose>
                                 </td>
                                 <td><a href="StudentUpdate.action?no=${student.no}">変更</a></td>
-                                <td><a href="StudentDelete.action?no=${student.no}">削除</a></td>
                             </tr>
                         </c:forEach>
                     </table>
@@ -85,6 +84,8 @@
                     <div>学生情報が存在しませんでした</div>
                 </c:otherwise>
             </c:choose>
+
+             </form>
         </section>
     </c:param>
 </c:import>

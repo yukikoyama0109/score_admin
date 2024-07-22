@@ -25,14 +25,14 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card-body">
-						<h2 class="mb-3 p-2 text rounded">学生情報登録</h2>
+						<h2 class="mb-3 p-2 text rounded">学生情報変更</h2>
 							<div class="alert alert-success alert-dismissible my-2 py-1 text-center" role="alert" style="background-color: #d4edda; border-color: #c3e6cb; color: #155724;">
-							    <p class="fs-7 m-0">登録が完了しました</p>
+							    <p class="fs-7 m-0">変更が完了しました</p>
 							</div>
 
                         <br>
                         <div class="large-margin">
-                            <a href="StudentCreate.action" class="me-5">また登録し続ける</a>
+
                             <a href="StudentList.action">学生一覧</a>
                         </div>
                     </div>

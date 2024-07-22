@@ -14,14 +14,16 @@ body {
 
 header {
   background-color: #f8f9fa;
-  padding: 10px;
+  padding: 15px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+
 }
 
 header h1 {
-  margin: 0;
+margin-top: 15px;
+margin-left:25px;
+font-weight: 600;
 }
 
 .header-link {
@@ -71,42 +73,57 @@ nav ul li a {
 nav ul li a:hover {
   text-decoration: underline;
 }
+
+.userNameLogin {
+	float: center;
+	margin-right: 15px;
+
+}
+.divLogin{
+	display: flex;
+	margin-top: 23px;
+	margin-right: 50px;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-  <h1>得点管理システム</h1>
+	<h1>得点管理システム</h1>
 
-<c:if test="${not empty session_teacher.id}">
-  <h5>ようこそ、${ session_teacher.id } さん (≧▽≦)</h5>
-</c:if>
+	<c:if test="${not empty session_teacher.id}">
+		<div class="divLogin">
+		  <p class="userNameLogin">${ session_teacher.name }様</p>
+		  <a href="login/Logout.action" class="header-link">ログアウト</a>
+		</div>
+	</c:if>
 
-  <a href="login/Logout.action" class="header-link">ログアウト</a>
 </header>
 
 <div id="container">
-  <div id="sidebar">
-    <nav>
-      <ul>
-        <li><a href="/menu.jsp">メニュー</a></li>
-        <li><a href="scoremanagermain/StudentList.action">学生管理</a></li>
-        <li>
-          <label>成績管理</label>
-          <ul>
-            <li><a href="#">成績登録</a></li>
-            <li><a href="#">成績参照</a></li>
-          </ul>
-        </li>
-        <li><a href="#">科目管理</a></li>
-      </ul>
-    </nav>
-  </div>
+	<c:if test="${not empty session_teacher.id}">
+		<div id="sidebar">
+		    <nav>
+		      <ul>
+		        <li><a href="#">メニュー</a></li>
+		        <li><a href="StudentList.action">学生管理</a></li>
+		        <li>
+		          <label>成績管理</label>
+		          <ul>
+		            <li><a href="#">成績登録</a></li>
+		            <li><a href="#">成績参照</a></li>
+		          </ul>
+		        </li>
+		        <li><a href="#">科目管理</a></li>
+		      </ul>
+		    </nav>
+		</div>
+	</c:if>
 
-  <div id="content">
-    ${param.body}
-  </div>
+  	<div id="content">
+    	${param.body}
+  	</div>
 </div>
 
 <footer>

@@ -49,13 +49,13 @@
                 <div class="col-md-4 mb-4">
                     <div class="box bg-success-light text-center text p-5 rounded"> <!-- 緑色 -->
                         <div>成績管理</div>
-                        <a href="#" >成績登録</a><br>
-                        <a href="#" >成績参照</a>
+                        <a href="/TestRegist.action" >成績登録</a><br>
+                        <a href="/TestList.action" >成績参照</a>
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="box bg-purple-light text-center text-white p-5 rounded d-flex flex-column justify-content-center align-items-center"> <!-- 紫色 -->
-                        <a href="#" >科目管理</a>
+                        <a href="/SubjectList.action" >科目管理</a>
                     </div>
                 </div>
             </div>
