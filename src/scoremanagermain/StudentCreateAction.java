@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import bean.Student;
 import bean.Teacher;
 import dao.ClassNumDAO;
-import dao.StudentDAO;
 import tool.Action;
 
 @WebServlet("/student_create.action")
@@ -32,7 +31,6 @@ public class StudentCreateAction extends Action {
 		List<Student> students = null; //学生リスト
 		LocalDate todaysDate = LocalDate.now(); //LocalDateインスタンスを取得
 		int year = todaysDate.getYear(); //現在の年を取得
-		StudentDAO sDao = new StudentDAO(); //学生Dao
 		ClassNumDAO cNumDao = new ClassNumDAO(); //クラス番号Daoを初期化
 
 

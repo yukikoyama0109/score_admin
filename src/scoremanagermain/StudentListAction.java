@@ -1,3 +1,9 @@
+/*
+	日付：2024/07/21
+	作成者:小山、グェン
+	内容：学生一覧
+*/
+
 package scoremanagermain;
 
 import java.time.LocalDate;
@@ -38,7 +44,7 @@ public class StudentListAction extends Action {
 		Map<String, String> errors = new HashMap<>(); //エラーメッセージ
 
 		//リクエストパラメーターの取得 2 ★
-		entYearStr = request.getParameter("f1"); //元はreqと書いてある
+		entYearStr = request.getParameter("f1");
 		classNum = request.getParameter("f2");
 		isAttendStr = request.getParameter("f3");
 
@@ -48,6 +54,22 @@ public class StudentListAction extends Action {
 
 		List<String> list = cNumDao.filter(teacher.getSchool());
 		System.out.println("class_num_set（クラスの一覧）: "+list);
+
+
+		//ビジネスロジック 4 ★
+		if (entYearStr != null) {
+			// 数値に変換
+			entYear = Integer.parseInt(entYearStr);
+		}
+
+		//在学フラグが送信されていた場合
+		if (isAttendStr != null) {
+			//在学フラグを立てる
+			isAttend = true;
+			// リクエストに在学フラグをセット
+			request.setAttribute("f3", isAttendStr);
+		}
+
 
 		if (entYear != 0 && !classNum.equals("0")) {
 			//入学年度とクラス番号を指定
@@ -66,11 +88,7 @@ public class StudentListAction extends Action {
 			students = sDao.filter(teacher.getSchool(), isAttend);
 		}
 
-		//ビジネスロジック 4 ★
-		if (entYearStr != null) {
-			// 数値に変換
-			entYear = Integer.parseInt(entYearStr);
-		}
+
 		//リストを初期化
 		List<Integer> entYearSet = new ArrayList<>();
 		// 10年間から1年後まで年をリストに追加
@@ -86,13 +104,7 @@ public class StudentListAction extends Action {
 		//リクエストにクラスに番号をセット
 		request.setAttribute("f2", classNum);
 
-		//在学フラグが送信されていた場合
-		if (isAttendStr != null) {
-			//在学フラグを立てる
-			isAttend = true;
-			// リクエストに在学フラグをセット
-			request.setAttribute("f3", isAttendStr);
-		}
+
 
 		//リクエストに学生リストをセット
 		request.setAttribute("students", students);
