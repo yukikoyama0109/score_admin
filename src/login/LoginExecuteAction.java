@@ -30,7 +30,7 @@ public class LoginExecuteAction extends Action{
 
 		if (teacher != null) {
 			session.setAttribute("session_teacher", teacher);
-		response.sendRedirect("../menu.jsp");
+		response.sendRedirect("../menu/menu.jsp");
 
 		} else {
 			request.setAttribute("id", login_id);

@@ -43,19 +43,19 @@
             <div class="row">
                 <div class="col-md-4 mb-4">
                    <div class="box bg-danger-light text-center text-white p-5 rounded d-flex flex-column justify-content-center align-items-center"> <!-- 赤色 -->
-                        <a href="scoremanagermain/StudentList.action" >学生管理</a>
+                        <a href="../scoremanagermain/StudentList.action" >学生管理</a>
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="box bg-success-light text-center text p-5 rounded"> <!-- 緑色 -->
                         <div>成績管理</div>
-                        <a href="/TestRegist.action" >成績登録</a><br>
-                        <a href="/TestList.action" >成績参照</a>
+                        <a href="../grades/TestRegist.action" >成績登録</a><br>
+                        <a href="../grades/TestList.action" >成績参照</a>
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="box bg-purple-light text-center text-white p-5 rounded d-flex flex-column justify-content-center align-items-center"> <!-- 紫色 -->
-                        <a href="subject/SubjectList.action" >科目管理</a>
+                        <a href="../subject/SubjectList.action" >科目管理</a>
                     </div>
                 </div>
             </div>

@@ -6,7 +6,7 @@
     <c:param name="body">
         <h2 style="background-color: #f8f9fa; padding: 10px;">科目管理</h2>
         <div class="text-right">
-            <a href="#" class="btn btn-primary">新規登録</a>
+            <a href="SubjectCreate.action" class="btn btn-primary">新規登録</a>
         </div>
 
         <table class="table">
