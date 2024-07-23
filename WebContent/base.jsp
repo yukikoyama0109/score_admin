@@ -105,7 +105,7 @@ nav ul li a {
 	<c:if test="${not empty session_teacher.id}">
 		<div class="divLogin">
 		  <p class="userNameLogin">${ session_teacher.name }様</p>
-		  <a href="login/Logout.action" class="header-link">ログアウト</a>
+		  <a href="../login/Logout.action" class="header-link">ログアウト</a>
 		</div>
 	</c:if>
 
@@ -116,16 +116,16 @@ nav ul li a {
 		<div id="sidebar">
 		    <nav>
 		      <ul>
-		        <li><a href="#">メニュー</a></li>
-		        <li><a href="StudentList.action">学生管理</a></li>
+		        <li><a href="../menu/menu.action">メニュー</a></li>
+		        <li><a href="../scoremanagermain/StudentList.action">学生管理</a></li>
 		        <li>
 		          <label>成績管理</label>
 		          <ul>
-		            <li><a href="#">ㅤ成績登録</a></li>
-		            <li><a href="#">ㅤ成績参照</a></li>
+		            <li><a href="../grades/TestList.action">ㅤ成績登録</a></li>
+		            <li><a href="../grades/TestRegist.action">ㅤ成績参照</a></li>
 		          </ul>
 		        </li>
-		        <li><a href="#">科目管理</a></li>
+		        <li><a href="../subject/SubjectList.action">科目管理</a></li>
 		      </ul>
 		    </nav>
 		</div>
