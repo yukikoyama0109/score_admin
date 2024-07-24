@@ -74,8 +74,7 @@ public class SubjectDAO extends DAO{
 		//リストを初期化
 		List<Subject> list = new ArrayList<>();
 
-//		//科目インスタンスを初期化
-//		Subject subject = new Subject();
+
 		//コネクションを確立
 		Connection connection = getConnection();
 
@@ -96,12 +95,16 @@ public class SubjectDAO extends DAO{
 				//リザルトセットが存在する場合
 				//学生インスタンスに検索結果をセット
 
-            while (rSet.next()) {
-                Subject subject = new Subject(); // 新しいSubjectインスタンスを作成
-                subject.setCd(rSet.getString("cd"));
-                subject.setName(rSet.getString("name"));
-                list.add(subject);
-            }
+				while (rSet.next()) {
+				//科目インスタンスを初期化
+				Subject subject = new Subject();
+				//学生インスタンスに検索結果をセット
+				subject.setCd(rSet.getString("cd"));
+				subject.setName(rSet.getString("name"));
+
+				//リストに追加
+				list.add(subject);
+			        }
 
 		} catch (Exception e) {
 			throw e;
@@ -153,7 +156,7 @@ public class SubjectDAO extends DAO{
 						//科目が存在した場合
 						//プリペアードステートメントにUPDATE文をセット
 						statement = connection.prepareStatement(
-								"update subject set cd=?, name=?, school_cd=? where cd=?");
+								"update subject set name=?, school_cd=? where cd=?");
 						statement.setString(1, subject.getName());
 						statement.setString(2, subject.getSchool().getCd());
 						statement.setString(3, subject.getCd());
@@ -205,11 +208,18 @@ public class SubjectDAO extends DAO{
 		try {
 			//データベースから科目を取得
 			Subject old = get(subject.getCd(), subject.getSchool());
+			System.out.println("oldが取得できていますか" + old);
+			if (old == null) {
 
+				System.out.println("SQLが実行されませんでした");
+			} else {
 				//プリペアードステートメントにDELETE文をセット
 				statement = connection.prepareStatement(
 						"delete from subject where cd=?");
 				statement.setString(1, subject.getCd());
+			}
+
+//				System.out.println(statement);
 
 			//プリペアードステートメントを実行
 			count = statement.executeUpdate();

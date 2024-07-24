@@ -121,8 +121,8 @@ nav ul li a {
 		        <li>
 		          <label>成績管理</label>
 		          <ul>
-		            <li><a href="../grades/TestList.action">ㅤ成績登録</a></li>
-		            <li><a href="../grades/TestRegist.action">ㅤ成績参照</a></li>
+		            <li><a href="../grades/TestRegist.action">ㅤ成績登録</a></li>
+		            <li><a href="../grades/TestList.action">ㅤ成績参照</a></li>
 		          </ul>
 		        </li>
 		        <li><a href="../subject/SubjectList.action">科目管理</a></li>
