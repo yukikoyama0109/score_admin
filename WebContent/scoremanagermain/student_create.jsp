@@ -7,7 +7,7 @@
         <div class="container">
             <h2 class="text-left p-2 bg-light rounded">学生登録情報</h2>
             <form action="StudentCreateExecute.action" method="post" class="row g-3">
-            	<!-- 入学年度 -->
+                <!-- 入学年度 -->
                 <div class="col-12">
                     <label for="ent_year" class="form-label">入学年度</label>
                     <select id="ent_year" name="ent_year" class="form-select">
@@ -16,21 +16,27 @@
                             <option value="${year}">${year}</option>
                         </c:forEach>
                     </select>
+                    <c:if test="${not empty errorEntYear}">
+                        <div class="text-warning mt-1">${errorEntYear}</div>
+                    </c:if>
                 </div>
 
-				<!-- 学生番号 -->
+                <!-- 学生番号 -->
                 <div class="col-12">
                     <label for="studentId" class="form-label">学生番号</label>
-                     <input type="text" id="studentId" name="no" class="form-control" value="${no}" required maxlength="10" placeholder="学生番号を入力してください">
+                    <input type="text" id="studentId" name="no" class="form-control" value="${no}" required maxlength="10" placeholder="学生番号を入力してください">
+                    <c:if test="${not empty errorStudentId}">
+                        <div class="text-warning mt-1">${errorStudentId}</div>
+                    </c:if>
                 </div>
 
-				<!-- 氏名 -->
+                <!-- 氏名 -->
                 <div class="col-12">
                     <label for="studentName" class="form-label">氏名</label>
                     <input type="text" id="studentName" name="name" class="form-control" value="${name}" required maxlength="30" placeholder="氏名を入力してください">
                 </div>
 
-				<!-- クラス -->
+                <!-- クラス -->
                 <div class="col-12">
                     <label for="class_num" class="form-label">クラス</label>
                     <select id="class_num" name="class_num" class="form-select">
