@@ -16,18 +16,41 @@ public class SubjectCreateExecuteAction extends Action{
 		Teacher teacher = (Teacher)session.getAttribute("session_teacher");
 		boolean subjects = false;
 
-		Subject subject = new Subject();
+//		Subject subject = new Subject();
 
-//		入力されたものをsubjectにセット
-		subject.setCd(request.getParameter("cd"));
-		subject.setName(request.getParameter("name"));
+        String cd = request.getParameter("cd");
+        String name = request.getParameter("name");
 
-//		学校コードをセッションから取得してsubjectにセット
-		subject.setSchool(teacher.getSchool());
-//		インスタンス生成
-		SubjectDAO subDao = new SubjectDAO();
-//		saveメソッドを実行
-		subjects = subDao.save(subject);
+
+
+		if (cd == null || cd.length() != 3) {
+            request.setAttribute("errorCd", "科目コードは3文字で入力してください");
+            request.setAttribute("cd", cd);
+            request.setAttribute("name", name);
+            request.getRequestDispatcher("subject_create.jsp").forward(request, response);
+            return;
+
+		}
+
+        // SubjectDAOのインスタンス生成
+        SubjectDAO subjectDao = new SubjectDAO();
+
+        // 科目が既に存在するかチェック
+        if (subjectDao.get(cd, teacher.getSchool()) != null) {
+            request.setAttribute("errorCd", "科目コードが重複しています");
+            request.setAttribute("cd", cd);
+            request.setAttribute("name", name);
+            request.getRequestDispatcher("subject_create.jsp").forward(request, response);
+            return;
+        }
+
+        // 新しい科目を作成して保存
+        Subject subject = new Subject();
+        subject.setCd(cd);
+        subject.setName(name);
+        subject.setSchool(teacher.getSchool());
+
+        subjects = subjectDao.save(subject);
 
 
 //		jspへフォワード
