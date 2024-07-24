@@ -74,7 +74,7 @@
 	                                            <select name="f3" id="f3" class="form-select form-control-wide">
 	                                                <option value="">----------</option>
 	                                                <c:forEach var="subject" items="${subjectList}">
-	                                                    <option value="${subject.name}">${subject.name}</option>
+	                                                    <option value="${subject.cd}">${subject.name}</option>
 	                                                </c:forEach>
 	                                            </select>
 	                                        </div>
@@ -96,16 +96,18 @@
                                         <div class="col-md-2 align-self-center">
                                             <strong>学生情報:</strong>
                                         </div>
-                                        <div class="col-md-6">
-                                            <label for="f4" class="form-label">学生番号:</label>
-                                            <input type="text" name="f4" id="f4" class="form-control"
-                                            required maxlength="10" placeholder="学生番号を入力してください"
-                                             value="${f4}"
-                                            >
-                                        </div>
-                                        <div class="col-md-4 text-end">
-                                            <button type="submit" class="btn btn-secondary">検索</button>
-                                        </div>
+                                        <form action="TestListSubjectExecute.action" method="post" class="row g-3">
+	                                        <div class="col-md-6">
+	                                            <label for="f4" class="form-label">学生番号:</label>
+	                                            <input type="text" name="f4" id="f4" class="form-control"
+	                                            required maxlength="10" placeholder="学生番号を入力してください"
+	                                             value="${f4}"
+	                                            >
+	                                        </div>
+	                                        <div class="col-md-4 text-end">
+	                                            <button type="submit" class="btn btn-secondary">検索</button>
+	                                        </div>
+	                                     </form>
                                     </div>
                                 </div>
 
@@ -120,9 +122,36 @@
                         <input type="hidden" name="sj" value="科目情報識別コード">
                         <input type="hidden" name="st" value="学生情報識別コード">
                     </div>
+
+
                 </div>
             </div>
         </div>
+                <form style="margin-left: 1em" action="itirann" method="post">
+            <p class="custom-header">氏名：${student.name}</p>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>科目名</th>
+                            <th>科目コード</th>
+                            <th>回数</th>
+                            <th>点数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="student" items="${students}">
+                            <tr>
+                                <td>${subject.name}</td>
+                                <td>${subject.cd}</td>
+                                <td>${test.point}</td>
+                                <td>${test.point}</td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </form>
     </c:param>
 </c:import>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
