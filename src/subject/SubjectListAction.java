@@ -1,6 +1,5 @@
 package subject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,9 +25,6 @@ public class SubjectListAction extends Action{
 		SubjectDAO subDao = new SubjectDAO(); //初期化
 
 
-//		subject_cd = request.getParameter("f1");
-//		subject_name = request.getParameter("f2");
-
 		System.out.println("----------科目管理のテストはじめ---------------");
 
 		//　ログインユーザーの学校コードを元にクラス番号の一覧を取得
@@ -39,31 +35,19 @@ public class SubjectListAction extends Action{
 		//科目コードリストを初期化
 		SubjectsCdList = subDao.filter(teacher.getSchool());
 
-//		List<String> SubjectCd = new ArrayList<>();
-//		科目ネームリストを初期化
-		List<String> SubjectName = new ArrayList<>();
-
-
-
-
 //		リクエストに科目一覧をセット
 		request.setAttribute("subjects", SubjectsCdList);
 
-//		ここからスタート7/19（金）
 
 		//リクエストにデータをセット
 		request.setAttribute("class_num_set", list);
 
 
 
-//		 subjects = subDao.get(subject.getCd(), teacher.getSchool());
-
-
-
 		//リクエストに学生リストをセット
 //				request.setAttribute("subject_cd", subject_cd);
 
-		//JSPへフォワード 7 ★
+		//JSPへフォワード
 				request.getRequestDispatcher("subject_list.jsp").forward(request, response);
 
 

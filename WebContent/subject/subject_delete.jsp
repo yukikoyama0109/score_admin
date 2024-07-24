@@ -28,15 +28,21 @@
                     <div class="card-body">
 						<h2 class="mb-3 p-2 text rounded">科目情報削除</h2>
 							<div class="message mb-2">
-								<label><p class="fs-7 m-0">「${subject_name}(${cd})」を削除してもよろしいでしょうか</p></label>
-							</div>
-							<div class="button mb-4">
-								<input type="submit" value="削除" href="subject_delete.action" style="background: #ff0000; border-color: #ff0000; color: #ffffff; border-radius : 10%;">
-							</div>
+							 	<form action="SubjectDeleteExecute.action" method="post">
+								<label>「${name}(${code})」を削除してもよろしいでしょうか</label>
 
+                        			<div class="button mb-4">
+										<!-- SubjectDeleteExecuteActionで受け取れるように設定 -->
+										<input type="hidden" name="code" value="${code}">
+										<input type="hidden" name="name" value="${name}">
+		                                <input type="submit" value="削除" class="btn btn-danger" style="border-radius: 0;">
+
+									</div>
+								</form>
+                       	 	</div>
                         <br>
                         <div>
-                            <a href="StudentCreate.action" class="me-5">戻る</a>
+                            <a href="SubjectList.action" class="me-5">戻る</a>
                         </div>
                     </div>
                 </div>

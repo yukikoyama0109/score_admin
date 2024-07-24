@@ -16,18 +16,17 @@
                <div class="row border mx-1 mb-3 py-2 align-items-center rounded" id="filter" style="background-color: #f0f0f0;">
                  <h4>科目情報変更</h4>
                </div>
-                <form action="update_subject" method="post">
+                <form action="SubjectUpdateExecute.action" method="post">
                     <div class="mb-3">
                         <label for="code" class="form-label">科目コード</label>
-                        <input type="text" class="form-control" id="name" name="name" value="${name}" maxlength="20" required>
                     </div>
-                    	<input="text" value="${code}" readonly>
+                    	<input type="text" value="${code}" name="cd" readonly>
                     <div class="mb-3">
                         <label for="name" class="form-label">科目名</label>
                         <input type="text" class="form-control" id="name" name="name" value="${name}" maxlength="20" required>
                     </div>
                     <button type="submit" class="btn btn-primary">変更</button>
-                    <p class="mt-3"><a href="subject_list.jsp">戻る</a></p>
+                    <p class="mt-3"><a href="SubjectList.action">戻る</a></p>
                 </form>
             </div>
         </c:param>

@@ -33,7 +33,7 @@
                         <br>
                         <div class="large-margin">
 
-                            <a href="SubjectList.action">学生一覧</a>
+                            <a href="SubjectList.action">科目一覧</a>
                         </div>
                     </div>
                 </div>
