@@ -15,24 +15,29 @@ import bean.TestListSubject;
 
 public class TestListSubjectDAO extends DAO {
 
-    private String baseSql = "select * from test where student_no=? ";
+    private String baseSql = "SELECT ent_year, TEST.class_num, student_no, name, TEST.no, TEST.point "
+    						+ "from TEST "
+    						+ "JOIN student ON TEST.student_no = student.no "
+    						+ "WHERE test.subject_cd=? and ent_year=?";
 
     // postFilterメソッド
     private List<TestListSubject> postFilter(ResultSet rSet) throws Exception {
-        // リストを初期化
+
+    	// リストを初期化
         List<TestListSubject> list = new ArrayList<>();
+
         try {
             while (rSet.next()) {
                 // 学生インスタンスを初期化
                 TestListSubject testlistsubject = new TestListSubject();
                 // 学生インスタンスに検索結果をセット
-                testlistsubject.setEntYear(rSet.getInt("entYear"));
-                testlistsubject.setStudentNo(rSet.getString("studentNo"));
-                testlistsubject.setStudentName(rSet.getString("studentName"));
-                testlistsubject.setClassNum(rSet.getString("classNum"));
+                testlistsubject.setEntYear(rSet.getInt("ent_year"));
+                testlistsubject.setStudentNo(rSet.getString("student_no"));
+                testlistsubject.setStudentName(rSet.getString("name"));
+                testlistsubject.setClassNum(rSet.getString("TEST.class_num"));
                 // pointsフィールドに値を設定
                 Map<Integer, Integer> points = new HashMap<>();
-                points.put(rSet.getInt("subject_id"), rSet.getInt("points"));
+                points.put(rSet.getInt("TEST.no"), rSet.getInt("TEST.point"));
                 testlistsubject.setPoints(points);
 
 
@@ -60,6 +65,7 @@ public class TestListSubjectDAO extends DAO {
             st = connection.prepareStatement(baseSql);
             // プリペアードステートメントに学生番号をバインド
             st.setString(1, subject.getCd()); // 学生番号に該当する項目をセット
+            st.setInt(2, entYear);
             // プリペアードステートメントを実行
             rSet = st.executeQuery();
             // リストへの格納処理を実行

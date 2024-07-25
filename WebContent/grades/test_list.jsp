@@ -34,11 +34,12 @@
     .form-control-narrow {
         width: 110px; /* 幅を150pxに設定 */
     }
+
 </style>
 <c:import url="/base.jsp">
     <c:param name="title">得点管理システム</c:param>
     <c:param name="body">
-        <div class="container mt-5">
+        <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-10">
                     <div class="card-body">
@@ -81,9 +82,6 @@
 	                                        <div class="col-md-2 text-end">
 	                                            <button type="submit" class="btn btn-secondary">検索</button>
 	                                        </div>
-	                                        <div class="errorMe text-warning justify-content-center">
-												${errorMe}
-											</div>
                                 		</form>
 
                                     </div>
@@ -96,7 +94,7 @@
                                         <div class="col-md-2 align-self-center">
                                             <strong>学生情報:</strong>
                                         </div>
-                                        <form action="TestListSubjectExecute.action" method="post" class="row g-3">
+                                        <form action="TestListSubjectExecute.action" method="post" class="formX row g-3">
 	                                        <div class="col-md-6">
 	                                            <label for="f4" class="form-label">学生番号:</label>
 	                                            <input type="text" name="f4" id="f4" class="form-control"
@@ -110,14 +108,14 @@
 	                                     </form>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
 
+
                         <div class="guide-message">
-                            科目情報を選択または学生番号を入力して検索ボタンをクリックしてください
+                            科目情報を選択または学生番号を入力してクリックしてください
                         </div>
+
 
                         <input type="hidden" name="sj" value="科目情報識別コード">
                         <input type="hidden" name="st" value="学生情報識別コード">
@@ -127,31 +125,7 @@
                 </div>
             </div>
         </div>
-                <form style="margin-left: 1em" action="itirann" method="post">
-            <p class="custom-header">氏名：${student.name}</p>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>科目名</th>
-                            <th>科目コード</th>
-                            <th>回数</th>
-                            <th>点数</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <c:forEach var="student" items="${students}">
-                            <tr>
-                                <td>${subject.name}</td>
-                                <td>${subject.cd}</td>
-                                <td>${test.point}</td>
-                                <td>${test.point}</td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
-                </table>
-            </div>
-        </form>
+
     </c:param>
 </c:import>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"

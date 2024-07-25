@@ -16,7 +16,6 @@ import bean.Teacher;
 import bean.TestListSubject;
 import dao.ClassNumDAO;
 import dao.SubjectDAO;
-import dao.TestDAO;
 import dao.TestListSubjectDAO;
 import tool.Action;
 
@@ -30,7 +29,7 @@ public class TestListSubjectExecuteAction extends Action {
         School school = teacher.getSchool();
         LocalDate todaysDate = LocalDate.now(); //LocalDateインスタンスを取得
         int year = todaysDate.getYear(); //現在の年を取得
-
+        int flag = 0; //flag = false
         try {
             // ユーザーが所属する学校を取得
 
@@ -76,8 +75,9 @@ public class TestListSubjectExecuteAction extends Action {
 
     	if (entYearStr == "" || classNum == "" || subjectCd == "") {
 //    		//検索条件不足エラーのエラーメッセージ
-            req.setAttribute("errorMe", "入学年度とクラスと科目を選択してください");
-    		req.getRequestDispatcher("test_list.jsp").forward(req, res);
+    		req.setAttribute("flag",flag);
+            req.setAttribute("errorMessage1", "入学年度とクラスと科目を選択してください");
+    		req.getRequestDispatcher("test_list_student.jsp").forward(req, res);
 		}
 
 		//ビジネスロジック
@@ -92,21 +92,29 @@ public class TestListSubjectExecuteAction extends Action {
 
         // 科目データの取得
         SubjectDAO subjectDAO = new SubjectDAO();
-        List<Subject> subjectList = null;
-        subjectList = subjectDAO.filter(teacher.getSchool());
 
         Subject subject = subjectDAO.get(subjectCd, school);
+        System.out.println("subject: "+ subject.getName());
 
+//        System.out.println("tlsdao: "+entYear + " -" +classNum + " -" + subject + " f4-" + school);
 		testListSubject = tlsDao.filter(entYear, classNum, subject, school);
+		System.out.println("check testListSubject: "+testListSubject);
+
+		if (testListSubject.size() >0) {
+			//リクエストに学生リストをセット
+			req.setAttribute("subjectKeyName", subject.getName());
+			req.setAttribute("testListSub", testListSubject);
+
+		} else {
+
+			req.setAttribute("flag",flag+1); //flag = true
+			req.setAttribute("errorMessage2", "学生情報が存在しませんでした");
+			req.setAttribute("testListSub", testListSubject);
+		}
+		req.getRequestDispatcher("test_list_student.jsp").forward(req, res);
 
 
-		System.out.println(testListSubject);
 
-    	System.out.println("ok!");
-
-    	req.getRequestDispatcher("test_list_student.jsp").forward(req, res);
-
-    	TestDAO tDao = new TestDAO();
 
 
 
