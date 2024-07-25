@@ -25,8 +25,20 @@ public class StudentCreateExecuteAction extends Action {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession(); // セッション
         boolean students = false;
+        Teacher teacher = (Teacher) session.getAttribute("session_teacher");
+        LocalDate todaysDate = LocalDate.now(); //LocalDateインスタンスを取得
+		int year = todaysDate.getYear(); //現在の年を取得
+		//リストを初期化
+		List<Integer> entYearSet = new ArrayList<>();
+		// 10年間から1年後まで年をリストに追加
+		for(int i = year - 10; i < year + 1; i++) {
+			entYearSet.add(i);
+		}
+
+		ClassNumDAO cNumDao = new ClassNumDAO(); //クラス番号Daoを初期化
+		List<String> list = cNumDao.filter(teacher.getSchool());
         try {
-            Teacher teacher = (Teacher) session.getAttribute("session_teacher");
+
 
             String studentId = request.getParameter("no");
             String studentName = request.getParameter("name");
@@ -35,17 +47,7 @@ public class StudentCreateExecuteAction extends Action {
             boolean isAttend = true;
             String school = teacher.getSchool().getCd();
 
-            LocalDate todaysDate = LocalDate.now(); //LocalDateインスタンスを取得
-    		int year = todaysDate.getYear(); //現在の年を取得
-    		//リストを初期化
-    		List<Integer> entYearSet = new ArrayList<>();
-    		// 10年間から1年後まで年をリストに追加
-    		for(int i = year - 10; i < year + 1; i++) {
-    			entYearSet.add(i);
-    		}
 
-    		ClassNumDAO cNumDao = new ClassNumDAO(); //クラス番号Daoを初期化
-    		List<String> list = cNumDao.filter(teacher.getSchool());
 
             //変更途中
             // 入学年度が選択されているか確認
@@ -73,6 +75,9 @@ public class StudentCreateExecuteAction extends Action {
         if (students) {
             request.getRequestDispatcher("student_create_done.jsp").forward(request, response);
         } else {
+        	request.setAttribute("ent_year_set", entYearSet);
+        	request.setAttribute("class_num_set", list);
+
             request.setAttribute("errorStudentId", "学生番号が重複しています");
             request.setAttribute("no", request.getParameter("no"));
             request.setAttribute("ent_year", request.getParameter("ent_year"));
