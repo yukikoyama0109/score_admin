@@ -5,8 +5,8 @@
     <c:param name="title">成績管理一覧</c:param>
     <c:param name="body">
         <form action="TestRegist.action" method="post" class="mt-4">
-          <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter" style="background-color: #f0f0f0;">
-		  	<h2 class="mb-4">成績管理</h2>
+          <div class="row border mb-3 py-2 align-items-center rounded" id="filter" style="background-color: #f0f0f0;">
+		  	<h2>成績管理</h2>
 		  </div>
             <div class="row">
                 <div class="row border mx-3 mb-3 py-2 align-items-center rounded" id="filter">
@@ -38,7 +38,7 @@
                         </select>
                     </div>
                     <div class="col-2">
-                        <label class="form-label" for="student-f4-select">回目</label>
+                        <label class="form-label" for="student-f4-select">回数</label>
                         <select class="form-select" id="student-f4-select" name="f4">
                             <option value="0">--------</option>
                             <c:forEach var="num" items="${numList}">
@@ -51,45 +51,65 @@
                     </div>
                 </div>
             </div>
-            </form>
+        </form>
 
-        <!-- koyama -->
-        <c:choose>
-                <c:when test="${tests.size() > 0}">
-                    <div><h4>検索結果：${tests.size()}件</h4></div>
-                    <form action="TestRegistExecute.action"method="post">
-                    <table class="table table-hover">
+        <div>
+
+            <form action="TestRegistExecute.action" method="post">
+
+                <div>
+
+                    <label for="name">科目：${subject.name}</label>
+
+                    <!--  <input type="text" id="name" name="name" class="form-control" />-->
+
+                </div>
+
+                <table class="table table-striped">
+
+                    <thead>
+
                         <tr>
                             <th>入学年度</th>
                             <th>クラス</th>
                             <th>学生番号</th>
                             <th>氏名</th>
-                            <th><input type="text" name="point_${student_no} }">点数</th>
+                            <th>点数</th>
+                        </tr>
+
+                    </thead>
+
+                     <c:forEach var="testregist" items="${testregist}">
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>${f1}</td>
+                            <td>${f2}</td>
+                            <td>${testregist.student.no}</td>
+                            <td>${testregist.student.name}</td>
+                            <td><input type="text" name="point_${student.no}" value="${testregist.point}" class="form-control" /></td>
 
                         </tr>
-                        <c:forEach var="test" items="${tests}">
-                            <tr>
-                                <td>${test.entYear}</td>
-                                <td>${test.classNum}</td>
-                                <td>${test.student_no}</td>
-                                <td>${test.name}</td>
-                                <td ${test.point}></td>
 
-                                <!-- <td><a href="StudentUpdate.action?no=${student.no}">変更</a></td> -->
-                            </tr>
-                        </c:forEach>
-						<div class="col-2">
-                       		<button type="submit" class="btn btn-primary mt-4">登録して終了</button>
-						</div>
-                    </table>
-                    </form>
-                </c:when>
-                <c:otherwise>
-                    <div>成績情報が存在しませんでした</div>
-                </c:otherwise>
-            </c:choose>
-         </form>
-         <!-- koyama/// -->
+                    </tbody>
+
+                    </c:forEach>
+
+                </table>
+
+ 				<div>
+                    <input type="button" value="登録して終了" class="btn btn-success" style="background-color:#6c757d;">
+                </div>
+
+            </form>
+
+        </div>
+
     </c:param>
-</c:import>
+
+    </c:import>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+

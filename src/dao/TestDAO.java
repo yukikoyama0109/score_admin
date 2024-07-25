@@ -14,7 +14,7 @@ import bean.Test;
 
 public class TestDAO extends DAO {
 
-    private String baseSql = "SELECT * FROM test WHERE school_cd=? ";
+    private String baseSql = "SELECT student.ent_year, student.class_num, student_no, student.name FROM test ";
 
     // getメソッド
     public Test get(Student student, Subject subject, School school, int no) throws Exception {
@@ -48,21 +48,31 @@ public class TestDAO extends DAO {
         List<Test> list = new ArrayList<>();
         while (rs.next()) {
             Test test = new Test();
-            test.setNo(rs.getInt("no"));
+//            test.setNo(rs.getInt("no"));
             test.setClassNum(rs.getString("class_num"));
-            test.setPoint(rs.getInt("point"));
+//            test.setSubject(rs.getString("subject_cd"));
+//            test.setPoint(rs.getInt("point"));
 
             Student student = new Student();
             student.setNo(rs.getString("student_no"));
+            student.setEntYear(rs.getInt("ent_year"));
+            student.setName(rs.getString("name"));
+
+            System.out.println("dao" + (rs.getString("student_no")));
+//            student.setName(rs.getString("name"));
             // 他のStudentフィールドを設定する必要がある場合は追加
 
             Subject subject = new Subject();
-            subject.setCd(rs.getString("subject_cd"));
+//            subject.setCd(rs.getString("subject_cd"));
+//            subject.setName(rs.getString("name"));
             // 他のSubjectフィールドを設定する必要がある場合は追加
 
             test.setStudent(student);
+            System.out.println(student);
             test.setSubject(subject);
+            System.out.println(subject);
             test.setSchool(school);
+            System.out.println(school);
 
             list.add(test);
         }
@@ -70,24 +80,29 @@ public class TestDAO extends DAO {
     }
 
     // filterメソッド
-    public List<Test> filter(School school, int entYear, String classNum, boolean isAttend) throws Exception {
+    public List<Test> filter(School school, int entYear, String classNum, Subject subject, int num ) throws Exception {
         List<Test> list = new ArrayList<>();
         Connection connection = getConnection();
         PreparedStatement statement = null;
         ResultSet rs = null;
-        String condition = "AND ent_year=? AND class_num=?";
+        String condition = " ent_year=? AND test.class_num=?";
         String order = " ORDER BY no ASC";
+        String condition2 = " AND test.no=? AND subject_cd=? ";
 
-        String conditionIsAttend = "";
-        if (isAttend) {
-            conditionIsAttend = "AND is_attend=true";
-        }
+
+//        String conditionIsAttend = "";
+//        if (isAttend) {
+//            conditionIsAttend = "AND is_attend=true";
+//        }
 
         try {
-            statement = connection.prepareStatement(baseSql + condition + conditionIsAttend + order);
-            statement.setString(1, school.getCd());
-            statement.setInt(2, entYear);
-            statement.setString(3, classNum);
+            statement = connection.prepareStatement(baseSql+"JOIN student ON test.student_no = student.no having" + condition + condition2 );
+//            statement.setString(1, school.getCd());
+            statement.setInt(1, entYear);
+            statement.setString(2, classNum);
+            statement.setInt(3, num);
+            statement.setString(4, subject.getCd());
+
             rs = statement.executeQuery();
             list = postFilter(rs, school);
         } catch (Exception e) {
