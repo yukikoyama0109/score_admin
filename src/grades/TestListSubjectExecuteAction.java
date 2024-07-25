@@ -93,6 +93,8 @@ public class TestListSubjectExecuteAction extends Action {
 		testListSubject = tlsubDao.filter(entYear, classNum, subject, school);
 		System.out.println("check testListSubject: "+testListSubject);
 
+
+
 		if (testListSubject.size() >0) {
 			//リクエストに学生リストをセット
 			req.setAttribute("subjectKeyName", subject.getName());

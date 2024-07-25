@@ -60,36 +60,44 @@ public class TestListStudentExecuteAction extends Action {
             throw new IOException("Data retrieval failed", e);
         }
 //-------------------------------------------------------------------------------
+        try {
+        	String noStudent = "";
 
-        String noStudent = "";
-
-    	//リクエストパラメーターの取得
-
-    	noStudent = req.getParameter("f4");
+        	//リクエストパラメーターの取得
+        	noStudent = req.getParameter("f4");
 
 
-    	Student student = null; //学生リスト
-    	StudentDAO sDao = new StudentDAO(); //学生Dao
-    	student = sDao.get(noStudent);
+        	Student student = null; //学生リスト
+        	StudentDAO sDao = new StudentDAO(); //学生Dao
+        	student = sDao.get(noStudent);
 
-    	List<TestListStudent> testListStudent = null;
-    	TestListStudentDAO tlstuDao = new TestListStudentDAO();
+        	List<TestListStudent> testListStudent = null;
+        	TestListStudentDAO tlstuDao = new TestListStudentDAO();
 
-    	testListStudent = tlstuDao.filter(student);
 
-    	if (testListStudent.size() >0) {
-			//リクエストに学生リストをセット
-			req.setAttribute("studentKeyName", student.getName());
-			req.setAttribute("studentKeyNo", student.getNo());
-			req.setAttribute("testListStu", testListStudent);
+        	testListStudent = tlstuDao.filter(student);
 
-		} else {
+        	if (testListStudent.size() >0) {
+        		req.setAttribute("flag2",flag);
+    			req.setAttribute("studentKeyName", student.getName());
+    			req.setAttribute("studentKeyNo", student.getNo());
+    			req.setAttribute("testListStu", testListStudent);
 
-			req.setAttribute("flag",flag+1); //flag = true
-			req.setAttribute("errorMessage2", "学生情報が存在しませんでした");
-			req.setAttribute("testListStu", testListStudent);
+    		} else {
+    			req.setAttribute("flag2",flag);
+    			req.setAttribute("studentKeyName", student.getName());
+    			req.setAttribute("studentKeyNo", noStudent);
+    			req.setAttribute("errorMessage2", "学生情報が存在しませんでした");
+    			req.setAttribute("testListStu", testListStudent);
+    		}
+    		req.getRequestDispatcher("test_list_student.jsp").forward(req, res);
+
+        } catch (Exception e) {
+        	req.setAttribute("flag2",flag+1);
+        	req.setAttribute("errorMessage2", "学生情報が存在しませんでした");
+        	req.getRequestDispatcher("test_list_student.jsp").forward(req, res);
 		}
-		req.getRequestDispatcher("test_list_student.jsp").forward(req, res);
+
 
 
 

@@ -117,6 +117,9 @@
                         </div>
 
 						<div class="errorMe justify-content-center">
+						<c:if test="${flag2 == 0 }">
+							<p class="custom-header">氏名：${studentKeyName}（${studentKeyNo}）</p>
+						</c:if>
 							${errorMessage2}
 						</div>
 
@@ -166,9 +169,10 @@
         </form>
 </c:if>
 
-<c:if test="${testListStu.size() > 0}">
+
 		<form style="margin-left: 1em" action="itirann" method="post">
-	        <p class="custom-header">氏名：${studentKeyName}（${studentKeyNo}）</p>
+
+            <c:if test="${testListStu.size() > 0}">
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
@@ -191,8 +195,9 @@
                     </tbody>
                 </table>
             </div>
+            </c:if>
         </form>
-</c:if>
+
 
     </c:param>
 </c:import>
