@@ -13,7 +13,10 @@ import bean.TestListStudent;
 
 public class TestListStudentDAO extends DAO{
 
-	private String baseSql = "select * from test where student_no=? ";
+    private String baseSql = "SELECT subject.name, subject_cd, TEST.no, TEST.point "
+			+ "from TEST "
+			+ "JOIN subject ON TEST.subject_cd = subject.cd "
+			+ "WHERE TEST.student_no=? ;";
 
 	//postFilterメソッド
 	private List<TestListStudent> postFilter(ResultSet rSet) throws Exception {
@@ -24,10 +27,10 @@ public class TestListStudentDAO extends DAO{
 				//学生インスタンスを初期化
 				TestListStudent testliststudent = new TestListStudent();
 				//学生インスタンスに検索結果をセット
-				testliststudent.setSubjectName(rSet.getString("subjectName"));
-				testliststudent.setSubjectCd(rSet.getString("subjectCd"));
-				testliststudent.setNum(rSet.getInt("num"));
-				testliststudent.setPoint(rSet.getInt("point"));
+				testliststudent.setSubjectName(rSet.getString("SUBJECT.name"));
+				testliststudent.setSubjectCd(rSet.getString("TEST.subject_cd"));
+				testliststudent.setNum(rSet.getInt("TEST.no"));
+				testliststudent.setPoint(rSet.getInt("TEST.point"));
 
 				//リストに追加
 				list.add(testliststudent);
@@ -53,7 +56,7 @@ public class TestListStudentDAO extends DAO{
 			// プリペアードステートメントにSQL文をセット
 			st = connection.prepareStatement(baseSql);
 			// プリペアードステートメントに学校コードをバインド
-			st.setString(1, student.getSchool().getCd());
+			st.setString(1, student.getNo());
 			// プリペアードステートメントを実行
 			rSet = st.executeQuery();
 			// リストへの格納処理を実行

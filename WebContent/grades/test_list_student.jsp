@@ -101,14 +101,15 @@
                                         <div class="col-md-2 align-self-center">
                                             <strong>学生情報:</strong>
                                         </div>
-
-                                        <div class="col-md-6">
-                                            <label for="f4" class="form-label">学生番号:</label>
-                                            <input type="text" name="f4" id="f4" class="form-control" required maxlength="10" placeholder="学生番号を入力してください" value="${f4}">
-                                        </div>
-                                        <div class="col-md-4 text-end">
-                                            <button type="submit" class="btn btn-secondary">検索</button>
-                                        </div>
+                                        <form action="TestListStudentExecute.action" method="post" class="formX row g-3">
+	                                        <div class="col-md-6">
+	                                            <label for="f4" class="form-label">学生番号:</label>
+	                                            <input type="text" name="f4" id="f4" class="form-control" required maxlength="10" placeholder="学生番号を入力してください" value="${f4}">
+	                                        </div>
+	                                        <div class="col-md-4 text-end">
+	                                            <button type="submit" class="btn btn-secondary">検索</button>
+	                                        </div>
+                                        </form>
 
                                     </div>
                                 </div>
@@ -157,6 +158,34 @@
 	                                <td>${point.key}</td>
 	                                <td>${point.value > 0 ? point.value : '-'}</td>
                               	</c:forEach>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+</c:if>
+
+<c:if test="${testListStu.size() > 0}">
+		<form style="margin-left: 1em" action="itirann" method="post">
+	        <p class="custom-header">氏名：${studentKeyName}（${studentKeyNo}）</p>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>科目名</th>
+                            <th>科目コード</th>
+                            <th>回数</th>
+                            <th>点数</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="tls" items="${testListStu}">
+                            <tr>
+                                <td>${tls.subjectName}</td>
+                                <td>${tls.subjectCd}</td>
+                                <td>${tls.num}</td>
+                                <td>${tls.point}</td>
                             </tr>
                         </c:forEach>
                     </tbody>

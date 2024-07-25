@@ -11,16 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.School;
+import bean.Student;
 import bean.Subject;
 import bean.Teacher;
-import bean.TestListSubject;
+import bean.TestListStudent;
 import dao.ClassNumDAO;
+import dao.StudentDAO;
 import dao.SubjectDAO;
-import dao.TestListSubjectDAO;
+import dao.TestListStudentDAO;
 import tool.Action;
 
-@WebServlet("/test_list_subject_execute.action")
-public class TestListSubjectExecuteAction extends Action {
+@WebServlet("/test_list_student_execute.action")
+public class TestListStudentExecuteAction extends Action {
 	@Override
     public void execute(HttpServletRequest req, HttpServletResponse res)
     		throws Exception {
@@ -59,52 +61,43 @@ public class TestListSubjectExecuteAction extends Action {
         }
 //-------------------------------------------------------------------------------
 
-        String entYearStr = "";
-		String classNum = ""; //入力されたクラス番号
-        int entYear = 0; //入学年度
-        String subjectCd = "";
+        String noStudent = "";
 
     	//リクエストパラメーターの取得
-    	entYearStr = req.getParameter("f1");
-    	classNum = req.getParameter("f2");
-    	subjectCd = req.getParameter("f3");
 
-    	if (entYearStr == "" || classNum == "" || subjectCd == "") {
-//    		//検索条件不足エラーのエラーメッセージ
-    		req.setAttribute("flag",flag);
-            req.setAttribute("errorMessage1", "入学年度とクラスと科目を選択してください");
-    		req.getRequestDispatcher("test_list_student.jsp").forward(req, res);
-		}
+    	noStudent = req.getParameter("f4");
 
-		//ビジネスロジック
-		if (entYearStr != null) {
-			// 数値に変換
-			entYear = Integer.parseInt(entYearStr);
-		}
 
-		List<TestListSubject> testListSubject = null;
-		TestListSubjectDAO tlsubDao = new TestListSubjectDAO();
+    	Student student = null; //学生リスト
+    	StudentDAO sDao = new StudentDAO(); //学生Dao
+    	student = sDao.get(noStudent);
 
-        // 科目データの取得
-        SubjectDAO subjectDAO = new SubjectDAO();
+    	List<TestListStudent> testListStudent = null;
+    	TestListStudentDAO tlstuDao = new TestListStudentDAO();
 
-        Subject subject = subjectDAO.get(subjectCd, school);
+    	testListStudent = tlstuDao.filter(student);
 
-		testListSubject = tlsubDao.filter(entYear, classNum, subject, school);
-		System.out.println("check testListSubject: "+testListSubject);
-
-		if (testListSubject.size() >0) {
+    	if (testListStudent.size() >0) {
 			//リクエストに学生リストをセット
-			req.setAttribute("subjectKeyName", subject.getName());
-			req.setAttribute("testListSub", testListSubject);
+			req.setAttribute("studentKeyName", student.getName());
+			req.setAttribute("studentKeyNo", student.getNo());
+			req.setAttribute("testListStu", testListStudent);
 
 		} else {
 
 			req.setAttribute("flag",flag+1); //flag = true
 			req.setAttribute("errorMessage2", "学生情報が存在しませんでした");
-			req.setAttribute("testListSub", testListSubject);
+			req.setAttribute("testListStu", testListStudent);
 		}
 		req.getRequestDispatcher("test_list_student.jsp").forward(req, res);
+
+
+
+
+
+
+
+
 
 
 

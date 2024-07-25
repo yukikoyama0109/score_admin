@@ -94,7 +94,7 @@
                                         <div class="col-md-2 align-self-center">
                                             <strong>学生情報:</strong>
                                         </div>
-                                        <form action="TestListSubjectExecute.action" method="post" class="formX row g-3">
+                                        <form action="TestListStudentExecute.action" method="post" class="formX row g-3">
 	                                        <div class="col-md-6">
 	                                            <label for="f4" class="form-label">学生番号:</label>
 	                                            <input type="text" name="f4" id="f4" class="form-control"
