@@ -4,12 +4,17 @@
 
 package scoremanagermain;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import bean.Teacher;
+import dao.ClassNumDAO;
 import dao.StudentDAO;
 import tool.Action;
 
@@ -30,28 +35,37 @@ public class StudentCreateExecuteAction extends Action {
             boolean isAttend = true;
             String school = teacher.getSchool().getCd();
 
+            LocalDate todaysDate = LocalDate.now(); //LocalDateインスタンスを取得
+    		int year = todaysDate.getYear(); //現在の年を取得
+    		//リストを初期化
+    		List<Integer> entYearSet = new ArrayList<>();
+    		// 10年間から1年後まで年をリストに追加
+    		for(int i = year - 10; i < year + 1; i++) {
+    			entYearSet.add(i);
+    		}
+
+    		ClassNumDAO cNumDao = new ClassNumDAO(); //クラス番号Daoを初期化
+    		List<String> list = cNumDao.filter(teacher.getSchool());
+
             //変更途中
             // 入学年度が選択されているか確認
             if (entYearStr == null || entYearStr.isEmpty()) {
-                request.setAttribute("errorEntYear", "入学年度を選択してください");
+            	request.setAttribute("ent_year_set", entYearSet);
+            	request.setAttribute("errorEntYear", "入学年度を選択してください");
                 request.setAttribute("no", studentId);
                 request.setAttribute("name", studentName);
-                request.setAttribute("class_num", class_num);
+                request.setAttribute("class_num_set", list);
                 request.getRequestDispatcher("student_create.jsp").forward(request, response);
                 return;
             }
 
             int entYear = Integer.parseInt(entYearStr);
 
-            System.out.println("------------学生新規登録のテスト-------------");
-            System.out.println("★★★ Insert checked: " + studentId + "--" + studentName + "--" + entYear + "--" + class_num + "--" + isAttend + "--" + school);
 
             StudentDAO sDao = new StudentDAO();
             students = sDao.insert(studentId, studentName, entYear, class_num, isAttend, school);
 		} catch (Exception e) {
-			System.out.println("▼ Error: NumberFormatException.forInputString");
-			request.getRequestDispatcher("student_create_not_done.jsp").forward(request, response);
-
+			throw e;
 		}
 
         //変更途中
